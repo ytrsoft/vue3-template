@@ -1,38 +1,14 @@
+import type { MenuTheme } from 'ant-design-vue'
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 export const useSystemStore = defineStore('system', () => {
+  const theme = ref<MenuTheme>('dark')
+  const collapsed = ref(false)
 
-  const theme = ref<'light' | 'dark'>('light')
-  const language = ref('zh-CN')
-  const sidebarCollapsed = ref(false)
-
-  const isDarkTheme = computed(() => theme.value === 'dark')
-
-  const toggleTheme = () => {
-    theme.value = theme.value === 'light' ? 'dark' : 'light'
+  const toggleCollapsed = () => {
+    collapsed.value = !collapsed.value
   }
 
-  const setTheme = (newTheme: 'light' | 'dark') => {
-    theme.value = newTheme
-  }
-
-  const toggleSidebar = () => {
-    sidebarCollapsed.value = !sidebarCollapsed.value
-  }
-
-  const setLanguage = (lang: string) => {
-    language.value = lang
-  }
-
-  return {
-    theme,
-    language,
-    sidebarCollapsed,
-    isDarkTheme,
-    toggleTheme,
-    setTheme,
-    toggleSidebar,
-    setLanguage
-  }
+  return { theme, toggleCollapsed, collapsed }
 })

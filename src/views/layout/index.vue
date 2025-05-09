@@ -1,16 +1,20 @@
 <template>
   <div class="flex h-screen">
-    <aside class="w-60 bg-gray-800 text-white p-4 space-y-4">
-      <h1 class="text-xl font-bold mb-6">中台系统</h1>
-      <router-link to="/dashboard" class="block px-3 py-2 rounded hover:bg-gray-700"
-        >📊 仪表盘</router-link
-      >
-      <router-link to="/users" class="block px-3 py-2 rounded hover:bg-gray-700"
-        >👤 用户管理</router-link
-      >
+    <aside class="px-4 overflow-auto bg-[#001529]">
+      <div class="flex-none h-[56px]">
+        <Logo />
+      </div>
+      <section class="flex-1 py-2">
+        <Menu />
+      </section>
     </aside>
-    <main class="flex-1 bg-gray-100 p-6 overflow-auto">
-      <router-view />
+    <main class="flex flex-col flex-1 overflow-auto">
+      <div class="flex-none h-[56px] border-b-[1px] border-b-[rgba(5,5,5,0.06)]">
+        <Header />
+      </div>
+      <section class="flex-1 bg-white p-4">
+        <router-view />
+      </section>
     </main>
   </div>
 </template>

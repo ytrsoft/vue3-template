@@ -1,3 +1,4 @@
+import { head } from 'lodash'
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import Layout from '../views/layout/index.vue'
 import Dashboard from '../views/dashboard/index.vue'
@@ -13,18 +14,32 @@ const routes: RouteRecordRaw[] = [
         redirect: '/dashboard'
       },
       {
-        path: 'dashboard',
-        component: Dashboard
+        path: '/dashboard',
+        component: Dashboard,
+        meta: {
+          title: '首页'
+        }
       },
       {
-        path:'users',
-        component: Users
+        path:'/users',
+        component: Users,
+        meta: {
+          title: '用户管理'
+        }
       }
     ]
   }
 ]
 
-const router = createRouter({
+export const getMenu = () => {
+  return head(routes)?.children?.filter((r) => r.path)
+}
+
+export const getDefault = () => {
+  return [head(getMenu())?.path] as Array<string>
+}
+
+export const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
