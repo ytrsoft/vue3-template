@@ -7,12 +7,11 @@
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
-    "*.{vue,js,ts}": [
-      "eslint --fix",
-      "git add"
+    "*.{js,ts,vue}": [
+      "eslint --fix"
     ]
   },
   "dependencies": {
@@ -33,6 +32,8 @@
     "vxe-table": "^4.13.21"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@tailwindcss/vite": "^4.1.6",
     "@types/axios": "^0.9.36",
     "@types/date-fns": "^2.5.3",
