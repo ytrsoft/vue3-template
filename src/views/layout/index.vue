@@ -12,7 +12,7 @@
       <div class="flex-none h-[56px] border-b-[1px] border-b-[rgba(5,5,5,0.06)]">
         <Header />
       </div>
-      <section class="flex-1 bg-white p-4">
+      <section class="flex-1 bg-gray-100 p-4">
         <router-view />
       </section>
     </main>
