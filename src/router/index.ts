@@ -4,6 +4,7 @@ import Layout from '../views/layout/index.vue'
 import Icon from '../views/icon/index.vue'
 import Form from '../views/form/index.vue'
 import Grag from '../views/drag/index.vue'
+import Command from '../views/command/index.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -33,6 +34,13 @@ const routes: RouteRecordRaw[] = [
         component: Form,
         meta: {
           title: '动态表单'
+        }
+      },
+      {
+        path:'/command',
+        component: Command,
+        meta: {
+          title: '命令式组件'
         }
       }
     ]
