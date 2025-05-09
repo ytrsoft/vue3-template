@@ -11,6 +11,7 @@ declare module 'vue' {
     AButton: typeof import('ant-design-vue/es')['Button']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AModal: typeof import('ant-design-vue/es')['Modal']
+    ATree: typeof import('ant-design-vue/es')['Tree']
     copy: typeof import('./components/Logo copy.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     Inner: typeof import('./components/Inner.vue')['default']
