@@ -1,8 +1,9 @@
 import { head } from 'lodash'
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 import Layout from '../views/layout/index.vue'
-import Dashboard from '../views/dashboard/index.vue'
-import Users from '../views/users/index.vue'
+import Icon from '../views/icon/index.vue'
+import Form from '../views/form/index.vue'
+import Grag from '../views/drag/index.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -11,20 +12,27 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        redirect: '/dashboard'
+        redirect: '/icon'
       },
       {
-        path: '/dashboard',
-        component: Dashboard,
+        path: '/icon',
+        component: Icon,
         meta: {
-          title: '首页'
+          title: 'SVG图标'
         }
       },
       {
-        path:'/users',
-        component: Users,
+        path:'/drag',
+        component: Grag,
         meta: {
-          title: '用户管理'
+          title: '拖拽卡顿'
+        }
+      },
+      {
+        path:'/form',
+        component: Form,
+        meta: {
+          title: '动态表单'
         }
       }
     ]
