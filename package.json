@@ -21,7 +21,8 @@
     "pinia": "^3.0.2",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1",
-    "vxe-table": "^3.15.21"
+    "vxe-pc-ui": "^4.6.1",
+    "vxe-table": "^4.13.21"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.6",

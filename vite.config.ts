@@ -22,7 +22,7 @@ export default defineConfig({
           importStyle: 'less'
         })
       ],
-      dts: 'src/components.d.ts'
+      dts: 'components.d.ts'
     })
   ],
   resolve: {
