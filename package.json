@@ -6,7 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "@vitejs/plugin-vue-jsx": "^4.1.2",
@@ -32,11 +39,20 @@
     "@types/echarts": "^4.9.22",
     "@types/lodash": "^4.17.16",
     "@types/node": "^22.15.17",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
     "@vitejs/plugin-legacy": "^6.1.1",
     "@vitejs/plugin-vue": "^5.2.4",
     "@vue/tsconfig": "^0.7.0",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-vue": "^10.1.0",
     "fast-glob": "^3.3.3",
+    "husky": "^9.1.7",
     "lightningcss": "^1.29.3",
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.5.3",
     "sass": "^1.87.0",
     "tailwindcss": "^4.1.6",
     "terser": "^5.39.0",
