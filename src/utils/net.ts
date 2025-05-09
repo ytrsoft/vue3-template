@@ -4,7 +4,7 @@ export const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 5000,
   headers: {
-    'Content-Type': 'application/json;charset=utf-8'
+    'Content-Type': 'application/json'
   }
 })
 
@@ -14,7 +14,7 @@ instance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
-    return config;
+    return config
   },
   (error: any) => {
     return Promise.reject(error)
