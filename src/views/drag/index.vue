@@ -37,7 +37,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { v4 as uuid } from 'uuid'
-import { throttle } from 'lodash'
 
 const draggedNode = ref<any>(null)
 const isDraggingOver = ref(false)
@@ -177,11 +176,10 @@ const handleDragEnter = (event: DragEvent) => {
   isDraggingOver.value = true
 }
 
-const handleDragOver = throttle((event: DragEvent) => {
-  console.log('handleDragOver')
+const handleDragOver = (event: DragEvent) => {
   event.preventDefault()
   event.dataTransfer!.dropEffect = 'copy'
-}, 200)
+}
 
 const handleDragLeave = (event: DragEvent) => {
   if (event.target === dropTarget.value) {
