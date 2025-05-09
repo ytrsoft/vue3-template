@@ -1,0 +1,32 @@
+{
+  "name": "vue3-template",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vueuse/core": "^13.1.0",
+    "axios": "^1.9.0",
+    "date-fns": "^4.1.0",
+    "echarts": "^5.6.0",
+    "lodash": "^4.17.21",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.6",
+    "@types/axios": "^0.9.36",
+    "@types/date-fns": "^2.5.3",
+    "@types/echarts": "^4.9.22",
+    "@types/lodash": "^4.17.16",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/tsconfig": "^0.7.0",
+    "tailwindcss": "^4.1.6",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vue-tsc": "^2.2.8"
+  }
+}
