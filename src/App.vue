@@ -1,3 +1,7 @@
+<script setup lang="ts">
+  import Demo from '@/components/Demo.vue'
+</script>
+
 <template>
-  <div>中台系统</div>
+  <Demo />
 </template>
