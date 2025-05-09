@@ -1,6 +1,6 @@
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig } from 'axios'
 
-const service = axios.create({
+export const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 5000,
   headers: {
@@ -8,7 +8,7 @@ const service = axios.create({
   }
 })
 
-service.interceptors.request.use(
+instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -21,7 +21,7 @@ service.interceptors.request.use(
   }
 )
 
-service.interceptors.response.use(
+instance.interceptors.response.use(
   (response: AxiosResponse) => {
     return response.data
   },
@@ -32,4 +32,6 @@ service.interceptors.response.use(
   }
 )
 
-export default service
+export const createSource = () => {
+  return axios.CancelToken.source()
+}
