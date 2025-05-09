@@ -1,3 +1,5 @@
+import 'virtual:svg-icons-register'
+
 import { createApp } from 'vue'
 
 import { createPinia } from 'pinia'
@@ -13,6 +15,7 @@ import VxeUIPluginRenderAntd from '@vxe-ui/plugin-render-antd'
 import '@vxe-ui/plugin-render-antd/dist/style.css'
 
 import App from './App.vue'
+import SvgIcon from './components/SvgIcon.vue'
 
 import './style.css'
 
@@ -29,5 +32,7 @@ app.use(pinia)
 app.use(Antd)
 app.use(VxeUI)
 app.use(VxeUITable)
+
+app.component('SvgIcon', SvgIcon)
 
 app.mount('#app')
