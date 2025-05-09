@@ -1,9 +1,3 @@
-<template>
-  <svg aria-hidden="true" class="svg-icon" :width="props.size" :height="props.size">
-    <use :xlink:href="symbolId" :fill="props.color" />
-  </svg>
-</template>
-
 <script setup>
 import { computed } from 'vue'
 const props = defineProps({
@@ -29,3 +23,9 @@ const symbolId = computed(() => {
   return `#${props.prefix}-${props.name}`
 })
 </script>
+
+<template>
+  <svg aria-hidden="true" class="svg-icon" :width="props.size" :height="props.size">
+    <use :xlink:href="symbolId" :fill="props.color" />
+  </svg>
+</template>
