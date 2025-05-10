@@ -5,6 +5,7 @@ import Icon from '../views/icon/index.vue'
 import Form from '../views/form/index.vue'
 import Grag from '../views/drag/index.vue'
 import Command from '../views/command/index.vue'
+import Mock from '../views/mock/index.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -14,6 +15,13 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         redirect: '/icon'
+      },
+      {
+        path: '/mock',
+        component: Mock,
+        meta: {
+          title: 'Mock'
+        }
       },
       {
         path: '/icon',

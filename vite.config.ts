@@ -12,6 +12,7 @@ import inspect from 'vite-plugin-inspect'
 import progress from 'vite-plugin-progress'
 import legacy from '@vitejs/plugin-legacy'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { viteMockServe } from 'vite-plugin-mock'
 
 export default defineConfig({
   // 解决依赖重复问题，确保只有一个版本的 Vue 和 Ant Design Vue
@@ -19,6 +20,15 @@ export default defineConfig({
     dedupe: ['vue', 'vue-router', 'ant-design-vue'],
   },
   plugins: [
+    // 配置mock
+    viteMockServe({
+      mockPath: 'mock',
+      ignore: /^_/,
+      watchFiles: true,
+      enable: true,
+      logger: true,
+      cors: true
+    }),
     // 支持 Vue 3 单文件组件
     vue(),
     // 支持 Vue 3 JSX 语法

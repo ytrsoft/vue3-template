@@ -40,3 +40,12 @@ export const useRequest = <D = any>(config: AxiosRequestConfig<D>) => {
   sendRequest()
   return { loading, error, data, retry, cancel }
 }
+
+export const useGet = (url: string, data?: any) => {
+  return useRequest({ method: 'GET', url, data})
+}
+
+export const usePost = (url: string, data?: any) => {
+  return useRequest({ method: 'POST', url, data})
+}
+
