@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, watch } from 'vue'
-import { cloneDeep } from 'lodash'
+import { Input as AInput } from 'ant-design-vue'
 import type { NFormProps, NFormEmits, NFormData, SchemaItem } from '../types'
 import { getFieldLabel } from '../utils'
 
@@ -14,7 +13,9 @@ const formData = ref<NFormData>({})
 
 watch(() => props.schema, () => {
   props.schema.forEach(item => {
-    if (item.field) formData.value[item.field] = ''
+    if (item.field && !(item.field in formData.value)) {
+      formData.value[item.field] = undefined
+    }
   })
 }, { immediate: true })
 
@@ -23,14 +24,13 @@ const wrapperCol = computed(() => ({
   offset: 24 - (24 / props.col)
 }))
 
-const handleFieldChange = (item: SchemaItem, value: any) => {
+const handleFieldChange = (item: SchemaItem, oldValue: any) => {
   if (item.trigger) {
-    const data = cloneDeep(formData.value)
     item.trigger({
-      value,
-      data,
-      next: (key, updatedValue) => {
-        formData.value[key] = updatedValue ?? value
+      value: oldValue,
+      data: formData.value,
+      next: (key, newValue) => {
+        formData.value[key] = newValue || oldValue
       }
     })
   }
@@ -42,8 +42,7 @@ const setFormData = (data: NFormData) => {
 
 const handleSubmit = async () => {
   await formRef.value?.validate()
-  const submittedData = cloneDeep(formData.value)
-  emit('submit', submittedData)
+  emit('submit', { ...formData.value })
   resetFormData()
 }
 
@@ -61,8 +60,8 @@ defineExpose({ setFormData })
     ref="formRef"
     :model="formData"
     layout="horizontal"
-    :label-col="{ span: 6 }"
     :wrapper-col="{ span: 18 }"
+    :label-col="{ span: 6 }"
   >
     <ARow :gutter="16">
       <ACol :span="24 / props.col" v-for="item in props.schema" :key="item.field">
@@ -81,6 +80,7 @@ defineExpose({ setFormData })
             />
             <div v-else>{{ getFieldLabel(formData[item.field], item) }}</div>
           </template>
+
           <template v-if="item.type === 'select' && item.field">
             <ASelect
               v-if="props.editable"
@@ -98,6 +98,7 @@ defineExpose({ setFormData })
             </ASelect>
             <div v-else>{{ getFieldLabel(formData[item.field], item) }}</div>
           </template>
+
           <template v-if="item.type === 'checkbox' && item.field">
             <ACheckboxGroup
               v-if="props.editable"
@@ -114,6 +115,7 @@ defineExpose({ setFormData })
             </ACheckboxGroup>
             <div v-else>{{ getFieldLabel(formData[item.field], item) }}</div>
           </template>
+
           <template v-if="item.type === 'radio' && item.field">
             <ARadioGroup
               v-if="props.editable"
@@ -128,19 +130,22 @@ defineExpose({ setFormData })
                 {{ option.label }}
               </ARadio>
             </ARadioGroup>
-            <div v-else>{{ getFieldLabel(formData[item.field], item)}}</div>
+            <div v-else>{{ getFieldLabel(formData[item.field], item) }}</div>
           </template>
+
           <template v-if="item.type === 'date' && item.field">
             <ADatePicker
               v-if="props.editable"
               style="width: 100%"
+              :placeholder="`请选择${item.label}`"
               v-model:value="formData[item.field]"
               @change="handleFieldChange(item, $event)"
             />
             <div v-else>{{ getFieldLabel(formData[item.field], item) }}</div>
           </template>
+
           <template v-if="item.type === 'textarea' && item.field">
-            <ATextArea
+            <AInput.TextArea
               v-if="props.editable"
               v-model:value="formData[item.field]"
               :placeholder="`请输入${item.label}`"
@@ -148,6 +153,7 @@ defineExpose({ setFormData })
             />
             <div v-else class="whitespace-pre-wrap">{{ getFieldLabel(formData[item.field], item) }}</div>
           </template>
+
           <template v-if="item.type === 'custom'">
             <slot :name="item.field" :field="item.field" :value="formData[item.field as any]" />
           </template>
