@@ -17,7 +17,7 @@ const postButton = () => {
     modalProps: {
       width: 600
     },
-    onOk: () => console.log('提交了表单'),
+    onOk: () => console.log('提交弹窗'),
     onCancel: () => console.log('关闭弹窗')
   })
 }
