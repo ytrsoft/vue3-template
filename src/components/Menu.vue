@@ -14,7 +14,7 @@ const items = computed(() => {
   return getMenu()?.map((r) => {
     return {
       key: r.path,
-      title: r.path,
+      title: String(r?.meta?.title),
       icon: () => h(UnorderedListOutlined),
       label: r?.meta?.title
     }
