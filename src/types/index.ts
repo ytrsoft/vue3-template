@@ -14,7 +14,7 @@ interface ISchemaItem {
   label: string
   rules: NFormRules
   type: NFieldType
-  options?: Option[] // Make options optional for non-select fields
+  options?: Option[] 
   trigger?: Trigger
 }
 
