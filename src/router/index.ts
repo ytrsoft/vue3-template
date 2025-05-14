@@ -6,6 +6,7 @@ import Form from '../views/form/index.vue'
 import Grag from '../views/drag/index.vue'
 import Command from '../views/command/index.vue'
 import Mock from '../views/mock/index.vue'
+import Three from '../views/three/index.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -49,6 +50,13 @@ const routes: RouteRecordRaw[] = [
         component: Command,
         meta: {
           title: '命令式组件'
+        }
+      },
+      {
+        path:'/three',
+        component: Three,
+        meta: {
+          title: 'ThreeJS'
         }
       }
     ]
