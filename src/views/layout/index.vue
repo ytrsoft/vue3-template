@@ -8,11 +8,11 @@
         <Menu />
       </section>
     </aside>
-    <main class="flex flex-col flex-1 overflow-auto">
-      <div class="flex-none h-[56px] border-b-[1px] border-b-[rgba(5,5,5,0.06)]">
+    <main class="flex-1 flex flex-col overflow-hidden pt-[56px] relative">
+      <div class="w-full h-[56px] border-b border-gray-200 bg-white fixed top-0">
         <Header />
       </div>
-      <section class="flex-1 bg-gray-100 p-4">
+      <section class="flex-1 bg-gray-100 p-4 overflow-auto">
         <router-view />
       </section>
     </main>
