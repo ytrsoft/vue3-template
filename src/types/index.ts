@@ -1,47 +1,57 @@
-import type { RuleObject } from 'ant-design-vue/es/form'
+import type { RuleObject } from 'ant-design-vue/es/form/interface'
 
-type NFieldType = 'input' | 'select' | 'checkbox' | 'radio' | 'date' | 'textarea' | 'custom'
+export type NFieldType = 
+  | 'input' | 'select' | 'checkbox' | 'radio' 
+  | 'date' | 'textarea' | 'custom' | 'number' 
+  | 'password' | 'daterange' | 'time'
+
+export interface Option<T = string> {
+  label: string
+  value: T
+  disabled?: boolean
+}
 
 export type NFormRules = RuleObject | RuleObject[]
 
-export interface Option {
-  label: string
-  value: string
-}
-
-interface ISchemaItem {
+export interface NSchema {
   field: string
   label: string
-  rules: NFormRules
   type: NFieldType
-  options?: Option[] 
-  trigger?: Trigger
+  rules?: NFormRules
+  props?: Record<string, any>
 }
-
-export type SchemaItem = Partial<ISchemaItem>
 
 export interface NFormProps {
   col?: number
   editable?: boolean
-  schema: Array<SchemaItem>
+  schema: NSchema[]
 }
 
-export type NFormData = {
-  [K in Exclude<NFormProps['schema'][number]['field'], undefined>]: K extends keyof SchemaItem ? SchemaItem[K] : any
+export type NSchemaFields<T extends readonly NSchema[]> = T[number]['field']
+export type NRaw<T extends readonly NSchema[]> = Partial<Record<NSchemaFields<T>, any>>
+export type NKey<T extends readonly NSchema[]> = NSchemaFields<T>
+export type Next<T extends readonly NSchema[]> = (key: NKey<T>, value?: any) => void
+
+export interface TriggerEvent<D = any, T extends readonly NSchema[] = NSchema[]> {
+  value: D
+  next: Next<T>
+  data: NRaw<T>
+  schema: NSchema
 }
 
-export type NFormKey = keyof NFormData
+export type Trigger<T extends readonly NSchema[]> = (event: TriggerEvent<any, T>) => void
 
-export type Next = (key: NFormKey, value?: any) => void
-
-export interface TriggerEvent {
-  value: any
-  next: Next
-  data: NFormData
+export interface NFormEmits<T extends readonly NSchema[]> {
+  (event: 'submit', data: NRaw<T>): void
 }
 
-export type Trigger = (event: TriggerEvent) => void
+export interface NFormItemEmits<T = any> {
+  (event: 'update:value', data: T): void
+  (event: 'change', data: T): void
+}
 
-export interface NFormEmits {
-  (event: 'submit', data: NFormData): void
+ export interface NFormItemProps<T = any> {
+  value: T
+  schema?: NSchema
+  editable?: boolean
 }
