@@ -2,7 +2,8 @@
   import {
     NFormProps,
     NFormEmits,
-    NRaw
+    NRaw,
+    NSchema
   } from '../types/index.ts'
   const formRef = ref()
   const props = withDefaults(defineProps<NFormProps>(), {
@@ -11,8 +12,16 @@
   })
   const emit = defineEmits<NFormEmits>()
   const formData = ref<NRaw<typeof props.schema>>({})
-  const handleChange = (value) => {
-    console.log('change', value)
+  const handleChange = (schema: NSchema, oldValue: any) => {
+    if (schema.trigger) {
+      schema.trigger({
+        value: oldValue,
+        data: formData.value,
+        next: (key, newValue) => {
+          formData.value[key] = newValue || oldValue
+        }
+      })
+    }
   }
   const handleSubmit = async () => {
     try {
@@ -36,10 +45,16 @@
           :label="schema.label"
           :name="schema.field">
           <NFormItem
+            v-if="schema.type !== 'custom'"
             v-model:value="formData[schema.field]"
             :schema="schema"
             :editable="props.editable" 
-            @change="handleChange($event)"/>
+            @change="handleChange(schema, $event)"/>
+          <slot 
+            v-else
+            :name="schema.field" 
+            :schema="schema" 
+            :raw="formData" />
         </AFormItem>
       </ACol>
     </ARow>
