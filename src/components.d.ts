@@ -32,6 +32,7 @@ declare module 'vue' {
     NForm: typeof import('./components/NForm.vue')['default']
     NFormItem: typeof import('./components/NFormItem.vue')['default']
     NModal: typeof import('./components/NModal.vue')['default']
+    NTable: typeof import('./components/NTable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./components/SvgIcon.vue')['default']

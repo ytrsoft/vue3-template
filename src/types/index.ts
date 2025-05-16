@@ -1,4 +1,5 @@
 import type { RuleObject } from 'ant-design-vue/es/form/interface'
+import type { VxeGridProps, VxeGridPropTypes } from 'vxe-table'
 
 export type NFieldType = 
   | 'input' | 'select' | 'checkbox' | 'radio' 
@@ -54,4 +55,30 @@ export interface NFormItemEmits<T = any> {
   value: T
   schema?: NSchema
   editable?: boolean
+}
+
+export interface Pager {
+  currentPage: number 
+  pageSize: number
+}
+
+export type VxeTablePager = { pagerConfig: VxeGridPropTypes.PagerConfig }
+
+export type VxeTableProps<T = any> =  VxeGridProps<T> & VxeTablePager
+
+export interface NTableEmits {
+  (event: 'change', page: Pager): void
+}
+
+export interface Column {
+  field: string
+  title: string
+  minWidth?: number
+  dragSort?: boolean
+}
+
+export interface NTableProps<T = any> {
+  immediate?: boolean
+  columns: Column[]
+  data: T[]
 }

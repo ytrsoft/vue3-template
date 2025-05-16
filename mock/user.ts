@@ -12,15 +12,31 @@ const userList = Mock.mock({
   ]
 })
 
+export interface Pager {
+  currentPage: number
+  pageSize: number
+}
+
 const userMock: MockMethod[] = [
   {
     url: '/api/users',
     method: 'get',
-    response: () => ({
-      code: 200,
-      message: 'success',
-      data: userList.list
-    })
+    response: ({ query }: { query: Pager }) => {
+      const { currentPage = 1, pageSize = 10 } = query
+      const list = userList.list
+      const startIndex = (currentPage - 1) * pageSize
+      const endIndex = startIndex + pageSize
+      const pageData = list.slice(startIndex, endIndex)
+
+      return {
+        code: 200,
+        message: 'success',
+        data: {
+          total: list.length,
+          result: pageData
+        }
+      }
+    }
   }
 ]
 

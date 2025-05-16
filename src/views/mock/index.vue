@@ -1,8 +1,29 @@
 <script lang="ts" setup>
-  import { useGet } from '../../hook'
-  const { data } = useGet('/users')
+  
+  import type {
+    Column
+  } from '../types'
+  import { usePost } from '../../hook'
+
+  const columns: Column[] = [
+    {
+      field: 'name',
+      title: '姓名'
+    }
+  ]
+  const data: any[] = [
+    {
+      name: 'jack'
+    }
+  ]
+  const handleChange = (page) => {
+    console.log('page change', page)
+  }
 </script>
 
 <template>
-  <h1>{{ data }}</h1>
+  <NTable 
+    :data="data"
+    :columns="columns"
+    @change="handleChange"/>
 </template>
