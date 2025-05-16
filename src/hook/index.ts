@@ -2,34 +2,40 @@ import { ref } from 'vue'
 import { instance as axios, createSource } from '../utils/net'
 import type { AxiosRequestConfig, CancelTokenSource } from 'axios'
 
-export const useRequest = <D = any>(config: AxiosRequestConfig<D>) => {
+interface RequestOptions {
+  immediate?: boolean
+}
+
+export type RequestConfig<R = any> = Partial<AxiosRequestConfig<R> & RequestOptions>
+
+export const useRequest = <D = any>(config: RequestConfig<D>) => {
   const loading = ref(false)
-  const data = ref(null)
+  const data = ref({})
   const error = ref(null)
   const tokenSource = shallowRef<CancelTokenSource | null>(null)
-  const sendRequest = async () => {
+  const sendRequest = async <D = any>(_config: RequestConfig<D>) => {
     loading.value = true
     error.value = null
     const source = createSource()
     tokenSource.value = source
     try {
       const response = await axios({
-        ...config,
+        ..._config,
          cancelToken: source.token
       })
       data.value = response.data
     } catch (err: any) {
-      error.value = err.message || 'unknown error'
+      error.value = err.message || '未知错误'
     } finally {
       loading.value = false
     }
   }
-  const retry = (time = 1) => {
-    if (time > 0) {
-      setTimeout(() => {
-        retry(time - 1)
-      }, 0)
-    }
+  const retry = <D = any>(data: D) => {
+    sendRequest({
+      url: config.url,
+      method: config.method,
+      data
+    })
   }
   const cancel = () => {
     if (tokenSource.value) {
@@ -37,7 +43,10 @@ export const useRequest = <D = any>(config: AxiosRequestConfig<D>) => {
       tokenSource.value = null
     }
   }
-  sendRequest()
+  config.immediate ??= true
+  if (config.immediate) {
+    sendRequest(config)
+  }
   return { loading, error, data, retry, cancel }
 }
 
@@ -45,7 +54,7 @@ export const useGet = (url: string, data?: any) => {
   return useRequest({ method: 'GET', url, data})
 }
 
-export const usePost = (url: string, data?: any) => {
-  return useRequest({ method: 'POST', url, data})
+export const usePost = <D = any>(config: RequestConfig<D>) => {
+  return useRequest({ method: 'POST', ...config })
 }
 

@@ -1,9 +1,9 @@
 import type { RuleObject } from 'ant-design-vue/es/form/interface'
-import type { VxeGridProps, VxeGridPropTypes } from 'vxe-table'
+import type { VxeGridDefines, VxeGridProps, VxeGridPropTypes } from 'vxe-table'
 
-export type NFieldType = 
-  | 'input' | 'select' | 'checkbox' | 'radio' 
-  | 'date' | 'textarea' | 'custom' | 'number' 
+export type NFieldType =
+  | 'input' | 'select' | 'checkbox' | 'radio'
+  | 'date' | 'textarea' | 'custom' | 'number'
   | 'password' | 'daterange' | 'time'
 
 export interface Option<T = string> {
@@ -57,17 +57,15 @@ export interface NFormItemEmits<T = any> {
   editable?: boolean
 }
 
-export interface Pager {
-  currentPage: number 
-  pageSize: number
-}
+export type Pager = Partial<VxeGridDefines.PageChangeEventParams>
 
 export type VxeTablePager = { pagerConfig: VxeGridPropTypes.PagerConfig }
 
 export type VxeTableProps<T = any> =  VxeGridProps<T> & VxeTablePager
 
-export interface NTableEmits {
+export interface NTableEmits<R = any> {
   (event: 'change', page: Pager): void
+  (event: 'checked', rwos: R[]): void
 }
 
 export interface Column {
@@ -77,8 +75,15 @@ export interface Column {
   dragSort?: boolean
 }
 
+export interface TableResponse<T = any> {
+  total: number
+  result: T[]
+}
+
 export interface NTableProps<T = any> {
   immediate?: boolean
   columns: Column[]
-  data: T[]
+  data: TableResponse<T>
+  total: number
+  checked?: boolean
 }

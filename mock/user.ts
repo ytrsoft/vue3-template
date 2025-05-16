@@ -20,9 +20,9 @@ export interface Pager {
 const userMock: MockMethod[] = [
   {
     url: '/api/users',
-    method: 'get',
-    response: ({ query }: { query: Pager }) => {
-      const { currentPage = 1, pageSize = 10 } = query
+    method: 'post',
+    response: ({ body }: { body: Pager }) => {
+      const { currentPage = 1, pageSize = 10 } = body || {}
       const list = userList.list
       const startIndex = (currentPage - 1) * pageSize
       const endIndex = startIndex + pageSize
